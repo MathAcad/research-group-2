@@ -1,20 +1,20 @@
-const int Pin=2;
+#define pin_t 2
 void setup()
 {
-   pinMode(Pin, INPUT);
+   pinMode(pin_t, INPUT);
    Serial.begin(9600);
 }
 
 void loop()
 {
-   int sensorValue = digitalRead(Pin);
-   if (sensorValue == LOW) {
-      Serial.println("no Object");
+   int sensorValue = digitalRead(pin_t);
+   if (sensorValue == 0) {
+      Serial.println("object detected");
       delay(500);
    }
    else
    {
-      Serial.println("Object Detected");
+      Serial.println("no object");
       delay(500);
    }
 }
