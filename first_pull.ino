@@ -3,6 +3,7 @@
 #define pin_t 2
 #define led 3
 #define servo_pin 4
+#define pin_t2 5
 
 Servo myservo;
 int pos = 0; // initialize
@@ -10,6 +11,7 @@ int pos = 0; // initialize
 void setup()
 {
    pinMode(pin_t, INPUT);
+   pinMode(pin_t2, INPUT);
    Serial.begin(9600);
    pinMode(led, OUTPUT);
    myservo.attach(servo_pin);
@@ -17,25 +19,48 @@ void setup()
   
 void loop()
 {
-   int sensorValue = digitalRead(pin_t);
-   Serial.println(sensorValue);
-   if (sensorValue == 0) {
+   int sensorValue_plastic = digitalRead(pin_t);
+   int sensorValue_metal = digitalRead(pin_t2);
+   Serial.println(sensorValue_plastic);
+   if (sensorValue_plastic != 0) {
       digitalWrite(3,HIGH);
-      for (pos = 0; pos <= 180; pos += 1) {
+      Serial.println(pos + " true");
+      for (pos = -3; pos <= 70; pos += 1) {
         myservo.write(pos);
         delay(1);
       }
-      Serial.println("object detected");
+      delay(3000);
+      for (pos = 70; pos >= -3; pos -= 1) {
+        myservo.write(pos);
+        delay(1);
+      }
+      Serial.println("object detected: plastic");
       delay(500);
    }
    else
    {
       digitalWrite(3,LOW);
-      for (pos = 180; pos >= 0; pos -= 1) {
+      Serial.println("no object: platic");
+      delay(500);
+   }
+   if (sensorValue_metal == 0) {
+      digitalWrite(3,HIGH);
+      for (pos = 0; pos <= 70; pos += 1) {
         myservo.write(pos);
         delay(1);
       }
-      Serial.println("no object");
+      delay(3000);
+      for (pos = 70; pos >= 0; pos -= 1) {
+        myservo.write(pos);
+        delay(1);
+      }
+      Serial.println("object detected: metal");
+      delay(500);
+   }
+   else
+   {
+      digitalWrite(3,LOW);
+      Serial.println("no object: metal");
       delay(500);
    }
 }
