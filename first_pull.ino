@@ -22,45 +22,47 @@ void loop()
    int sensorValue_plastic = digitalRead(pin_t);
    int sensorValue_metal = digitalRead(pin_t2);
    Serial.println(sensorValue_plastic);
+   // plastic
    if (sensorValue_plastic != 0) {
       digitalWrite(3,HIGH);
       Serial.println(pos + " true");
-      for (pos = -3; pos <= 70; pos += 1) {
+      for (pos = 90; pos <= 160; pos += 1) {
         myservo.write(pos);
         delay(1);
       }
       delay(3000);
-      for (pos = 70; pos >= -3; pos -= 1) {
+      for (pos = 160; pos >= 90; pos -= 1) {
         myservo.write(pos);
         delay(1);
       }
-      Serial.println("object detected: plastic");
+      Serial.println("object detected plastic");
       delay(500);
    }
    else
    {
       digitalWrite(3,LOW);
-      Serial.println("no object: platic");
+      Serial.println("no object platic");
       delay(500);
    }
+   // metal
    if (sensorValue_metal == 0) {
       digitalWrite(3,HIGH);
-      for (pos = 0; pos <= 70; pos += 1) {
+      for (pos = 90; pos >= 20; pos -= 1) {
         myservo.write(pos);
         delay(1);
       }
       delay(3000);
-      for (pos = 70; pos >= 0; pos -= 1) {
+      for (pos = 20; pos <= 90; pos += 1) {
         myservo.write(pos);
         delay(1);
       }
-      Serial.println("object detected: metal");
+      Serial.println("object detected metal");
       delay(500);
    }
    else
    {
       digitalWrite(3,LOW);
-      Serial.println("no object: metal");
+      Serial.println("no object metal");
       delay(500);
    }
 }
