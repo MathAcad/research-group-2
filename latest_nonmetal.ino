@@ -49,14 +49,8 @@ void loop()
         myservo1.write(pos);
         delay(1);
       }
-   }
-   else
-   {
-      Serial.println("no object non-metal");
-   }
-  
    // metal
-   if (sensorValue_metal != 0) {
+   } else if (sensorValue_metal != 0) {
       Serial.println("object detected metal");
       for (pos = 90; pos >= 45; pos -= 1) {
         myservo2.write(pos);
@@ -67,10 +61,8 @@ void loop()
         myservo2.write(pos);
         delay(1);
       }
-   }
-   else
-   {
-      Serial.println("no object metal");
+   } else {
+      Serial.println("no metal or non-metal object detected");
    }
    delay(1000);
 }
