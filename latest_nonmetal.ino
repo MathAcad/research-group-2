@@ -8,9 +8,9 @@
 
 long duration;
 int distance;
+int pos = 0;
 Servo myservo1;
 Servo myservo2;
-int pos = 0;
 
 void setup()
 {
